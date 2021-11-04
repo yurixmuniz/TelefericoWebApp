@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TelefericoWebApp.Data;
 
 namespace TelefericoWebApp.Migrations
 {
     [DbContext(typeof(TelefericoWebAppContext))]
-    partial class TelefericoWebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20211104205125_Fornecedor")]
+    partial class Fornecedor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,12 @@ namespace TelefericoWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProdutoId")
+                        .HasColumnType("int");
+
                     b.HasKey("FornecedorId");
+
+                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Fornecedor");
                 });
@@ -132,9 +139,6 @@ namespace TelefericoWebApp.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FornecedorId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Preco")
                         .HasColumnType("float");
 
@@ -146,6 +150,13 @@ namespace TelefericoWebApp.Migrations
                     b.HasIndex("ProdutoId");
 
                     b.ToTable("Valor");
+                });
+
+            modelBuilder.Entity("TelefericoWebApp.Models.Fornecedor", b =>
+                {
+                    b.HasOne("TelefericoWebApp.Models.Produto", null)
+                        .WithMany("Fornecedor")
+                        .HasForeignKey("ProdutoId");
                 });
 
             modelBuilder.Entity("TelefericoWebApp.Models.Produto", b =>
@@ -169,6 +180,8 @@ namespace TelefericoWebApp.Migrations
 
             modelBuilder.Entity("TelefericoWebApp.Models.Produto", b =>
                 {
+                    b.Navigation("Fornecedor");
+
                     b.Navigation("Valor");
                 });
 #pragma warning restore 612, 618

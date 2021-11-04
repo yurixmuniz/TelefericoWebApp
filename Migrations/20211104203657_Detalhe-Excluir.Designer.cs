@@ -3,37 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TelefericoWebApp.Data;
 
 namespace TelefericoWebApp.Migrations
 {
     [DbContext(typeof(TelefericoWebAppContext))]
-    partial class TelefericoWebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20211104203657_Detalhe-Excluir")]
+    partial class DetalheExcluir
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("TelefericoWebApp.Models.Fornecedor", b =>
-                {
-                    b.Property<int>("FornecedorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FornecedorId");
-
-                    b.ToTable("Fornecedor");
-                });
 
             modelBuilder.Entity("TelefericoWebApp.Models.Pedido", b =>
                 {
@@ -64,6 +50,10 @@ namespace TelefericoWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fornecedor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -131,9 +121,6 @@ namespace TelefericoWebApp.Migrations
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("FornecedorId")
-                        .HasColumnType("int");
 
                     b.Property<double>("Preco")
                         .HasColumnType("float");

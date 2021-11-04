@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace TelefericoWebApp.Models
 {
-    public class Produto
+    public class Valor
     {
-        public int ProdutoId { get; set; }
+        public int ValorId { get; set; }
         [Required]
-        public string Nome { get; set; }
+        public int FornecedorId { get; set; }
         [Required]
-        public string Descricao { get; set; }
+        public double Preco { get; set; }
         [Required]
-        public List<Valor> Valor { get; set; }
-        public string Imagem { get; set; }
+        public DateTime Data { get; set; }
     }
 }
