@@ -9,6 +9,7 @@ namespace TelefericoWebApp.Models
     {
         public int PedidoId { get; set; }
         public int UsuarioId { get; set; }
+        public List<Produto> Produtos { get; set; }
         public double Valor { get; set; }
         public DateTime DtPedido { get; set; }
 

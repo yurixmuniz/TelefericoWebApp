@@ -23,7 +23,7 @@ namespace TelefericoWebApp.Controllers
 
         // GET: api/Produtos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produto>>> GetProduto()
+        public async Task<ActionResult<IEnumerable<Produto>>> GetProdutos()
         {
             return await _context.Produtos.ToListAsync();
         }
@@ -76,8 +76,9 @@ namespace TelefericoWebApp.Controllers
         // POST: api/Produtos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Produto>> PostProduto(Produto produto)
+        public async Task<ActionResult<Produto>> PostProduto(string nome, Produto produto)
         {
+  
             _context.Produtos.Add(produto);
             await _context.SaveChangesAsync();
 
@@ -104,5 +105,7 @@ namespace TelefericoWebApp.Controllers
         {
             return _context.Produtos.Any(e => e.ProdutoId == id);
         }
+
+
     }
 }

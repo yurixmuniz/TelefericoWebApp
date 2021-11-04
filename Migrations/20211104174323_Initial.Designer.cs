@@ -10,8 +10,8 @@ using TelefericoWebApp.Data;
 namespace TelefericoWebApp.Migrations
 {
     [DbContext(typeof(TelefericoWebAppContext))]
-    [Migration("20211104145339_Produtos")]
-    partial class Produtos
+    [Migration("20211104174323_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,28 @@ namespace TelefericoWebApp.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TelefericoWebApp.Models.Pedidos.Pedido", b =>
+            modelBuilder.Entity("TelefericoWebApp.Models.DetalheProduto", b =>
+                {
+                    b.Property<int>("DetalheProdutoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DtRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
+
+                    b.HasKey("DetalheProdutoId");
+
+                    b.ToTable("DetalheProdutos");
+                });
+
+            modelBuilder.Entity("TelefericoWebApp.Models.Pedido", b =>
                 {
                     b.Property<int>("PedidoId")
                         .ValueGeneratedOnAdd()
@@ -42,7 +63,7 @@ namespace TelefericoWebApp.Migrations
                     b.ToTable("Pedidos");
                 });
 
-            modelBuilder.Entity("TelefericoWebApp.Models.Produtos.Produto", b =>
+            modelBuilder.Entity("TelefericoWebApp.Models.Produto", b =>
                 {
                     b.Property<int>("ProdutoId")
                         .ValueGeneratedOnAdd()
@@ -61,7 +82,7 @@ namespace TelefericoWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PedidoId")
+                    b.Property<int?>("PedidoId")
                         .HasColumnType("int");
 
                     b.Property<double>("Valor")
@@ -69,10 +90,12 @@ namespace TelefericoWebApp.Migrations
 
                     b.HasKey("ProdutoId");
 
+                    b.HasIndex("PedidoId");
+
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("TelefericoWebApp.Models.Usuarios.Usuario", b =>
+            modelBuilder.Entity("TelefericoWebApp.Models.Usuario", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .ValueGeneratedOnAdd()
@@ -108,6 +131,18 @@ namespace TelefericoWebApp.Migrations
                     b.HasKey("UsuarioId");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("TelefericoWebApp.Models.Produto", b =>
+                {
+                    b.HasOne("TelefericoWebApp.Models.Pedido", null)
+                        .WithMany("Produtos")
+                        .HasForeignKey("PedidoId");
+                });
+
+            modelBuilder.Entity("TelefericoWebApp.Models.Pedido", b =>
+                {
+                    b.Navigation("Produtos");
                 });
 #pragma warning restore 612, 618
         }

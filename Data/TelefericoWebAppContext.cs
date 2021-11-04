@@ -20,5 +20,7 @@ namespace TelefericoWebApp.Data
         public DbSet<TelefericoWebApp.Models.Pedido> Pedidos { get; set; }
 
         public DbSet<TelefericoWebApp.Models.Produto> Produtos { get; set; }
+
+        public DbSet<TelefericoWebApp.Models.DetalheProduto> DetalheProdutos { get; set; }
     }
 }

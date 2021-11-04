@@ -9,7 +9,6 @@ namespace TelefericoWebApp.Models
     public class Produto
     {
         public int ProdutoId { get; set; }
-        public int PedidoId { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
